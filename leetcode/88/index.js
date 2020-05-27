@@ -22,43 +22,19 @@
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
 var merge = function (nums1, m, nums2, n) {
-  if (m == 0) {
-    for (let index = 0; index < n; index++) {
-      nums1[index] = nums2[index]
+  while (m > 0 && n > 0) {
+    if (nums1[m - 1] >= nums2[n - 1]) {
+      nums1[m + n - 1] = nums1[m - 1]
+      m--
+    } else {
+      nums1[m + n - 1] = nums2[n - 1]
+      n--
     }
-    return
   }
-  let num1Index = 0
-  let num2Index = 0
-  let num1Tag = 0
-  while (num2Index < n) {
-    while (num1Index < n + m && num1Tag < m) {
-      // console.log(nums2[num2Index], nums1[num1Index]);
-      if (nums2[num2Index] <= nums1[num1Index]) {
-        for (let index = m + n - 1; index > num1Index; index--) {
-          nums1[index] = nums1[index - 1]
-        }
-        // 插入
-        nums1[num1Index] = nums2[num2Index]
-        num1Index++
-        break
-      } else {
-        num1Index++
-        num1Tag++
-      }
+  if (n > 0) {
+    for (let index = n; index > 0; index--) {
+      nums1[index - 1] = nums2[index - 1]
     }
-    // console.log(num2Index);
-
-    if (num1Tag == m) {
-      // console.log('tag' + num1Tag);
-      break
-    }
-    num2Index++
-  }
-  // num2Index--;
-  while (num2Index < n) {
-    nums1[m + num2Index] = nums2[num2Index]
-    num2Index++
   }
 }
 
