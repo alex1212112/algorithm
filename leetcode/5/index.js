@@ -17,10 +17,12 @@
  * @return {string}
  */
 var longestPalindrome = function (s) {
-  const subs = substrings(s)
-  for (let sub of subs) {
-    if (isPalindrome(sub)) {
-      return sub
+  for (let count = s.length; count > 0; count--) {
+    for (let index = 0; index <= s.length - count; index++) {
+      let sub = s.substring(index, index + count)
+      if(isPalindrome(sub)) {
+        return sub
+      }
     }
   }
   return ''
@@ -39,21 +41,6 @@ function isPalindrome(s) {
   return left == right.split('').reverse().join('')
 }
 
-/**
- * @param {string} s
- * @return {Array}
- */
-function substrings(s) {
-  const array = []
-  for (let count = s.length; count > 0; count--) {
-    for (let index = 0; index <= s.length - count; index++) {
-      let sub = s.substring(index, index + count)
-      console.log(sub)
-      array.push(sub)
-    }
-  }
-  return array
-}
 
 const s =
   'jrjnbctoqgzimtoklkxcknwmhiztomaofwwzjnhrijwkgmwwuazcowskjhitejnvtblqyepxispasrgvgzqlvrmvhxusiqqzzibcyhpnruhrgbzsmlsuacwptmzxuewnjzmwxbdzqyvsjzxiecsnkdibudtvthzlizralpaowsbakzconeuwwpsqynaxqmgngzpovauxsqgypinywwtmekzhhlzaeatbzryreuttgwfqmmpeywtvpssznkwhzuqewuqtfuflttjcxrhwexvtxjihunpywerkktbvlsyomkxuwrqqmbmzjbfytdddnkasmdyukawrzrnhdmaefzltddipcrhuchvdcoegamlfifzistnplqabtazunlelslicrkuuhosoyduhootlwsbtxautewkvnvlbtixkmxhngidxecehslqjpcdrtlqswmyghmwlttjecvbueswsixoxmymcepbmuwtzanmvujmalyghzkvtoxynyusbpzpolaplsgrunpfgdbbtvtkahqmmlbxzcfznvhxsiytlsxmmtqiudyjlnbkzvtbqdsknsrknsykqzucevgmmcoanilsyyklpbxqosoquolvytefhvozwtwcrmbnyijbammlzrgalrymyfpysbqpjwzirsfknnyseiujadovngogvptphuyzkrwgjqwdhtvgxnmxuheofplizpxijfytfabx'
