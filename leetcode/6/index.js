@@ -30,40 +30,29 @@
  * @return {string}
  */
 var convert = function (s, numRows) {
-  if(numRows == 1) {
+  if (numRows == 1 || s.length <= numRows) {
     return s
   }
-  const len = s.length
   const arr = []
-  for (let row = 0; row < numRows; row++) {
-    let index = row
-    let rowArr = []
-    while (index < len) {
-      rowArr.push(s[index])
-      if (row == 0 || row == numRows - 1) {
-        index = index + 2 * numRows - 2
-        if (!s[index]) {
-          console.log(row)
-          console.log(index)
-          break
-        }
-      } else {
-        index = index + 2 * numRows - 2 - row * 2
-        if (!s[index]) {
-          break
-        }
-        rowArr.push(s[index])
-        index = index + row * 2
-        if (!s[index]) {
-          break
-        }
-      }
+  let rowIndex = 0
+  let goDown = true
+  for (let index = 0; index < s.length; index++) {
+    let row = arr[rowIndex]
+    if (!row) {
+      row = []
+      arr.push(row)
     }
-    arr.push(rowArr)
+    row.push(s[index])
+    if (rowIndex == 0) {
+      goDown = true
+    } else if (rowIndex == numRows - 1) {
+      goDown = false
+    }
+    rowIndex += goDown ? 1 : -1
   }
   return arr.flatMap((e) => e).join('')
 }
 
-const s = 'A'
-const result = convert(s, 1)
+const s = 'PAYPALISHIRING'
+const result = convert(s, 3)
 console.log(`${result}`)
