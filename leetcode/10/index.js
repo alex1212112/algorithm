@@ -60,7 +60,6 @@ var isMatch = function (s, p) {
   for (let pIndex = 1; pIndex <= p.length; pIndex++) {
     dp[0][pIndex] = p[pIndex - 1] == '*' ? dp[0][pIndex - 2] : false
   }
-  // console.log(dp)
 
   for (let sIndex = 1; sIndex <= s.length; sIndex++) {
     for (let pIndex = 1; pIndex <= p.length; pIndex++) {
