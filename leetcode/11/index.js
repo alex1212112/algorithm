@@ -13,16 +13,19 @@
  */
 var maxArea = function (height) {
   let max = 0
-  for (let beginIndex = 0; beginIndex < height.length - 1; beginIndex++) {
-    for (let endIndex = 1; endIndex < height.length; endIndex++) {
-      const area =
-        Math.min(height[beginIndex], height[endIndex]) * (endIndex - beginIndex)
-      max = Math.max(max, area)
+  let left = 0
+  let right = height.length - 1
+  while (left != right) {
+    max = Math.max(max, (right - left) * Math.min(height[left], height[right]))
+    if (height[left] <= height[right]) {
+      left++
+    } else {
+      right--
     }
   }
   return max
 }
 
-const height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
+const height = [2, 3, 4, 5, 18, 17, 6]
 const result = maxArea(height)
 console.log(result)
