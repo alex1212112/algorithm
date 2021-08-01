@@ -48,9 +48,26 @@ function stringContains(a, b) {
 }
 
 
-const a = 'ABCDEFG'
-const b = 'BCD'
+function stringContainsWithBit(a, b) {
+  let hash = 0;
+  for(let i = 0; i < a.length; i++) {
+    let count = a.charCodeAt(i) - 'A'.charCodeAt(0)
+    hash = hash | 1 << count
+  }
+  for(let i = 0; i < b.length; i++) {
+    let count = b.charCodeAt(i) - 'A'.charCodeAt(0)
+    let num = 1 << count
+    if((num & hash) == 0) {
+      return false
+    }
+  }
+  return true
+}
 
-const result = stringContains(a, b)
+
+const a = 'ABCDEFG'
+const b = 'CDE'
+
+const result = stringContainsWithBit(a, b)
 
 console.log(`result is ${result}`)
