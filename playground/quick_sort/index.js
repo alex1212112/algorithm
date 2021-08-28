@@ -4,31 +4,26 @@ function quikSort(list) {
 }
 
 function quikSortHelp(list, low, high) {
+  if(low >= high) {
+    return
+  }
   const p = findPostion(list, low, high)
-  if(p - 1 > low) {
-    quikSortHelp(list, low, p - 1) 
-  }
-  if(p + 1 < high) {
-    quikSortHelp(list, p + 1, high) 
-  }
+  quikSortHelp(list, low, p - 1) 
+  quikSortHelp(list, p + 1, high) 
   return list
 }
 
 function findPostion(list, low, high) {
-  let postion = low
-  let currentIndex = low
-  const tmp = list[low]
-  for(let index=low + 1; index<=high; index++) {
+  let position = low
+  const tmp = list[high]
+  for(let index=low; index<high; index++) {
     if(list[index] < tmp) {
-      swap(list, postion, index)
-      postion++ 
-      if(list[index] == tmp) {
-        currentIndex = index
-      }
+      swap(list, position, index)
+      position++ 
     }
   }
-  swap(list, postion, currentIndex)
-  return postion
+  swap(list, position, high)
+  return position
 }
 
 function swap(list, p1, p2) {
