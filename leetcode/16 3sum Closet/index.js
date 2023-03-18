@@ -4,8 +4,6 @@
 
 // You may assume that each input would have exactly one solution.
 
- 
-
 // Example 1:
 
 // Input: nums = [-1,2,1,-4], target = 1
@@ -16,7 +14,6 @@
 // Input: nums = [0,0,0], target = 1
 // Output: 0
 // Explanation: The sum that is closest to the target is 0. (0 + 0 + 0 = 0).
- 
 
 // Constraints:
 
@@ -29,27 +26,27 @@
  * @param {number} target
  * @return {number}
  */
- var threeSumClosest = function(nums, target) {
-  let sorted = nums.sort((a,b) => a - b);
-  let length = nums.length;
-  let diff = Number.MAX_VALUE;
-  let result;
-  for(let index = 0; index < length - 2; index++) {
-      let left = index + 1;
-      let right = length - 1;
-      while(left < right) {
-          let sum = sorted[index] + sorted[left] + sorted[right];
-          let tmpDiff = Math.abs(target - sum);
-          if(tmpDiff < diff)  {
-              diff = tmpDiff;
-              result = sum;
-          }
-          if(sum > target) {
-              right-- ;
-          } else {
-              left++;
-          }
+var threeSumClosest = function (nums, target) {
+  let sorted = nums.sort((a, b) => a - b)
+  let length = nums.length
+  let diff = Number.MAX_VALUE
+  let result
+  for (let index = 0; index < length - 2; index++) {
+    let left = index + 1
+    let right = length - 1
+    while (left < right) {
+      let sum = sorted[index] + sorted[left] + sorted[right]
+      let tmpDiff = Math.abs(target - sum)
+      if (tmpDiff < diff) {
+        diff = tmpDiff
+        result = sum
       }
+      if (sum > target) {
+        right--
+      } else {
+        left++
+      }
+    }
   }
-  return result;
-};
+  return result
+}
