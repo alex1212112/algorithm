@@ -27,13 +27,13 @@ var generateParenthesis = function(n) {
     const result = []
     const options = ['(', ')']
 
-    backtrack('', options, result, n, n, n)
+    backtrack('', options, result, n)
     return result
 
 };
 
 
-function backtrack(path, options, result, leftCount, rightCount, pairCount) {
+function backtrack(path, options, result, pairCount) {
 
     if(path.length == pairCount * 2) {
         result.push(path)
@@ -47,12 +47,12 @@ function backtrack(path, options, result, leftCount, rightCount, pairCount) {
         if(item == '(' && isNextLeftValid(path, pairCount)) {
             const tmpPath = path
             path = `${path}(`
-            backtrack(path, options, result, leftCount - 1, rightCount, pairCount)
+            backtrack(path, options, result, pairCount)
             path = tmpPath
         } else if( item == ')' && isNextRightValid(path)) {
             const tmpPath = path
             path = `${path})`
-            backtrack(path, options, result, leftCount , rightCount - 1, pairCount)
+            backtrack(path, options, result, pairCount)
             path = tmpPath
         }
     }
