@@ -37,95 +37,57 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var nextPermutation = function(nums) {
-    const sorted = [...nums]
-    sorted.sort((a, b) => a - b) 
-    const list = permutation(sorted)
-    const index = list.findIndex(item => {
-       return item.every((el, i) => {
-        return  el == nums[i]
-       })
-    })
+   if(nums.length <= 1) {
+    return 
+   }
+   let i = null
+   let j = null
 
-    let result = null 
-    if(index == list.length - 1) {
-      result = list[0]
-    } else {
-      result = list[index + 1] 
+   for(let index = nums.length - 1; index >= 1; index--) {
+    if(nums[index] > nums[index - 1] ) {
+      i = index - 1
+      break
     }
-    for(let index = 0; index < result.length; index++) {
-      nums[index] = result[index]
-    } 
+   } 
+
+   if(i != null) {
+    for(let index = nums.length - 1; index >= 0; index--) {
+      if(nums[index] > nums[i] ) {
+        j = index
+        break
+      }
+     } 
+     
+     const temp = nums[i]
+     nums[i] = nums[j]
+     nums[j] = temp 
+   } 
+   if(i != null) {
+    reverseArrayPart(nums, i + 1) 
+   } else {
+    reverseArrayPart(nums, 0)
+   }
 };
 
-/**
- * @param {number[]} nums
- * @return {[[]]} 
- */
-function permutation(nums) {
-  const result = []
-  const frequency = {}
-  for(let num of nums) {
-    frequency[num] = (frequency[num] || 0) + 1
+
+function reverseArrayPart(list, start) {
+  let left = start 
+  let right = list.length - 1
+
+  while(left < right) {
+    const temp = list[left]
+    list[left] = list[right]
+    list[right] = temp
+    left++
+    right--
   }
-
-  backtrack(null,nums, nums.length, result, frequency)
-
-  return result
-}
-
-/**
- * @param {number[]} path
- * @param {number[]} options
- * @param {number} length
- * @param {[[]]} result
- * @return {void} 
- */
-
-function backtrack(path, options, length,result, frequency) {
-  for(let option of options) {
-    if(path && path.length == length) {
-      const index = result.findIndex(item => {
-        return item.every((el, i) => {
-         return  el == path[i]
-        })
-      })
-      if(index < 0) {
-        result.push([...path])
-        // console.log(path)
-      }
-      return 
-    }
-
-    if(path) {
-      const itemCount = itemCountInList(path, option) 
-      if(itemCount == frequency[option]) {
-        continue
-      } 
-    }
-    
-    if(!path || path.length == 0) {
-      path = [option]
-    } else {
-      path.push(option)
-    }
-    backtrack(path, options, length, result, frequency)
-    path.pop()
-  }
-} 
-
-/**
- * @param {number[]} list
- * @param {number} item 
- * @return {number} count 
- */
-function itemCountInList(list, item) {
-  return list.reduce((a, b) => {
-    return a + (b == item ? 1 : 0) 
-  }, 0)
 }
 
 
-const nums = [2,2,7,5,4,3,2,2,1]
-nextPermutation(nums)
+const list = [5,1,1]
 
-console.log(nums)
+nextPermutation(list)
+
+console.log(list)
+
+
