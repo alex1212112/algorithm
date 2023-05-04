@@ -41,7 +41,6 @@ var permuteUnique = function(nums) {
  */
 function backtrack(nums, result, path) {
   if(path.length == nums.length) {
-    // result.push([...path])
     const elements = path.map(index => nums[index])
     result.push(elements)
     return
