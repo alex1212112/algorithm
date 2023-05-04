@@ -129,6 +129,28 @@ function reverseRow(matrix,n, start, end, record) {
      return tag
   }
 
+
+
+  function rotate2(matrix) {
+    const n = matrix.length;
+
+    // 先沿主对角线翻转矩阵
+    for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+            [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+        }
+    }
+
+    // 再沿垂直中轴线翻转矩阵
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n / 2; j++) {
+            [matrix[i][j], matrix[i][n - j - 1]] = [matrix[i][n - j - 1], matrix[i][j]];
+        }
+    }
+    
+    console.log(matrix)
+}
+
  const m = [
   [1,2,3,4],
   [5,6,7,8],
@@ -136,4 +158,4 @@ function reverseRow(matrix,n, start, end, record) {
   [13,14,15,16]
  ]
 
- rotate(m)
+ rotate2(m)
