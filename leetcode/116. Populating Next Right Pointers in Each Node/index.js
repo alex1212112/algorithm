@@ -47,9 +47,6 @@ var connect = function (root) {
     return null
   }
   root.next = null
-  if(root.left && root.right) {
-    root.left.next = root.right
-  }
   populate(root)
   return root
 }
