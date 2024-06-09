@@ -66,3 +66,53 @@ function bfs(queue) {
   }
   return count
 }
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+function height(root) {
+  let h = 0
+  if(root) {
+    h++
+  }
+  while(root.left) {
+    h++
+    root = root.left
+  }
+  return h
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {number} height
+ * @param {number} maxHeight
+ * @param {number[]} list
+ * @return {number}
+ */
+function traversal(root, height, maxHeight, list) {
+  if(!root) {
+    const count = list[0]
+    return count
+  }
+  if(height == maxHeight) {
+    let leafCount = list.shift()
+    leafCount++
+    list.push(leafCount)
+  }
+
+  traversal(root.left, height + 1, maxHeight, list)
+  traversal(root.right, height + 1, maxHeight, list)
+  const count = list[0]
+  return count 
+}
+
+var countNodes2 = function(root) {
+  if(!root) {
+    return 0
+  }
+  const h = height(root)
+  const top = Math.pow(2, h - 1) - 1
+  const leafCount = traversal(root, 1, h, [0])
+  return top + leafCount
+};
